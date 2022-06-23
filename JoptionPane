@@ -1,0 +1,16 @@
+import javax.swing.JOptionPane;
+
+public class main {
+
+    public static void main(String[] args)
+    {
+        String name=JOptionPane.showInputDialog("Enter your name");
+        JOptionPane.showMessageDialog(null,"Hello"+name);
+        int age=Integer.parseInt(JOptionPane.showInputDialog("Your name pls"));
+        JOptionPane.showMessageDialog(null,"Your age "+age);
+        double gpa=Double.parseDouble(JOptionPane.showInputDialog("Your gpa pls"));
+        JOptionPane.showMessageDialog(null,"Your gpa "+gpa);
+    }
+
+
+}
