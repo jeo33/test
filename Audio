@@ -1,0 +1,25 @@
+package project;
+import javax.sound.sampled.*;
+import java.io.*;
+import java.util.Scanner;
+
+public class Main {
+
+    public static void main(String[] args) throws LineUnavailableException, UnsupportedAudioFileException, IOException {
+       File f=new File("C:\\Users\\zsy11\\Desktop\\Gai_Audacity.wav");
+
+            AudioInputStream audio= AudioSystem.getAudioInputStream(f);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audio);
+            clip.start();
+            Scanner s=new Scanner(System.in);
+            String x=s.next();
+            while(!x.equals("q"))
+            {
+                x=s.next();
+            }
+            clip.start();
+
+
+    }
+    }
