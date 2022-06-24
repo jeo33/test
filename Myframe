@@ -1,0 +1,20 @@
+package project;
+
+import javax.swing.*;
+import java.awt.*;
+
+public class Myframe extends JFrame
+{
+    Myframe()
+    {
+
+        this.setVisible(true);
+        this.setSize(800,600);
+        this.setTitle("Jframe product");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setResizable(false);
+        ImageIcon image=new ImageIcon("C:\\Users\\zsy11\\Desktop\\miemie.jfif");
+        this.setIconImage(image.getImage());
+        this.getContentPane().setBackground(new Color( 120, 41, 217));
+    }
+}
