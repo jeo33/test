@@ -1,0 +1,45 @@
+package project;
+
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+
+
+public class Main {
+
+    public static void main(String[] args)
+    {   JLabel l=new JLabel();
+        Border b=BorderFactory.createLineBorder(Color.GREEN);
+        JFrame f=new JFrame("My project");
+        ImageIcon I=new ImageIcon("C:\\Users\\zsy11\\Desktop\\miemie.jfif");
+        l.setText("this is the first label");
+        f.add(l);
+        l.setIcon(I);
+        l.setVerticalAlignment(JLabel.CENTER);
+        l.setHorizontalAlignment(JLabel.CENTER);
+        l.setHorizontalTextPosition(JLabel.HORIZONTAL);
+        l.setBorder(b);
+        l.setVerticalTextPosition(JLabel.TOP);
+        l.setForeground(Color.BLUE);
+        l.setIconTextGap(0);
+        l.setBackground(new Color(120,25,250));
+        l.setOpaque(true);
+        l.setFont(new Font("Mv Boli",Font.BOLD,100));
+        //l.setBounds(100,100,500,500);
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setVisible(true);
+        f.setIconImage(I.getImage());
+        f.pack();//after every label or components
+
+
+
+
+
+    }
+
+
+
+
+}
+
+
