@@ -1,0 +1,59 @@
+package project;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Myframe extends JFrame implements ActionListener
+{   JButton button=new JButton();
+    JLabel l=new JLabel();
+    Myframe()
+    {
+
+        ImageIcon i=new ImageIcon("C:\\Users\\zsy11\\Desktop\\miemie.jfif");
+        Image temp=i.getImage();
+        Image scaled=temp.getScaledInstance(100,100,1);
+        ImageIcon resized=new ImageIcon(scaled);
+
+        ImageIcon label_image=new ImageIcon("C:\\Users\\zsy11\\Desktop\\Photo-icon.png");
+        Image temp1=i.getImage();
+        Image scaled1=temp.getScaledInstance(100,100,1);
+        ImageIcon resized1=new ImageIcon(scaled1);
+        l.setIcon(resized1);
+        l.setBounds(100,600,500,200);
+        l.setVisible(false);
+        this.add(l);
+        button.setBounds(100,100,500,500);
+        button.addActionListener(this);
+        button.setText("Click it ");
+        button.setFocusable(false);
+        button.setIcon(resized);
+        button.setHorizontalTextPosition(JButton.LEFT);;
+        button.setVerticalTextPosition(JButton.CENTER);
+        button.setIconTextGap(-200);
+        button.setFont(new Font("Comic Sans",Font.BOLD,22));
+        button.setForeground(Color.CYAN);
+        button.setBackground(Color.red);
+        button.setBorder(BorderFactory.createLineBorder(Color.green));
+
+        this.add(button);
+
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+        this.setLayout(null);
+        this.setSize(1000,1000);
+        this.setVisible(true);
+
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==button)
+        {   int i=0;
+            System.out.println("poo");
+                l.setVisible(true);
+          
+        }
+    }
+}
