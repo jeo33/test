@@ -1,0 +1,50 @@
+package test;
+import java.util.Scanner;
+
+import javax.swing.*;
+public class Main {
+	public static void main(String[] args)
+	{
+		JOptionPane p=new JOptionPane();
+		Scanner s=new Scanner(System.in);
+		int flag=0;
+		
+		do {
+			System.out.println("your option");
+		int x=s.nextInt();
+			switch(x)
+			{
+			case 1:
+				p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.PLAIN_MESSAGE);
+				break;
+			case 2:
+				p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.INFORMATION_MESSAGE);
+				break;
+			case 3:
+				p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.QUESTION_MESSAGE);
+				break;
+			case 4:
+				p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.WARNING_MESSAGE);
+				break;
+			case 5:
+				p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.ERROR_MESSAGE);
+				break;
+				
+			default:
+				flag=1;
+				break;
+			}
+		}
+		while(flag!=1);
+		//p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.PLAIN_MESSAGE);
+		//p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.INFORMATION_MESSAGE);
+		//p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.QUESTION_MESSAGE);
+	//	p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.WARNING_MESSAGE);
+		//p.showMessageDialog(null, "tittle is this ", "tittle", JOptionPane.ERROR_MESSAGE);
+		
+	
+		
+		
+	}
+
+}
