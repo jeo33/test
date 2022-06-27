@@ -1,0 +1,56 @@
+package test;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+public class myframe extends JFrame implements ActionListener {
+	JComboBox box=new JComboBox();
+	JButton b=new JButton("submit");
+	myframe(){
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.setLayout(new FlowLayout());
+		this.setVisible(true);
+		Integer[] animals= {"dog","cat","bird","turtle"
+		};
+		box=new JComboBox(animals);
+		b.addActionListener(this);
+		box.addItem("horse");
+
+		box.insertItemAt("mice", 3);
+		box.setSelectedItem("horse");
+		box.removeItem("cat");
+		System.out.println(box.getItemCount());
+		this.add(b);
+		this.add(box);
+		this.pack();
+	}
+	
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==b)
+		{
+
+			System.out.println(box.getSelectedItem());
+			//System.out.println(box.getSelectedItem());
+		}
+	}
+	
+	
+	
+
+}
