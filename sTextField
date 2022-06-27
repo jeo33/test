@@ -1,0 +1,48 @@
+package test;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JTextField;
+
+public class myframe extends JFrame implements ActionListener {
+	
+	
+	JButton button=new JButton("submit it ");
+	JTextField f=new JTextField();
+	myframe(){
+	button.addActionListener(this);
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setLayout(new FlowLayout());
+	this.setVisible(true);
+	f.setPreferredSize(new Dimension(250,40));
+	this.add(button);
+	this.add(f);
+	this.pack();
+	f.setFont(new Font("Consolas",Font.PLAIN,35));
+	f.setForeground(Color.cyan);
+	f.setBackground(Color.GREEN);
+	f.setCaretColor(Color.black);
+	f.setText("user name");
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+	if(e.getSource()==button)
+	{
+		String s=f.getText();
+		f.setEditable(false);
+		button.setEnabled(false);
+		System.out.println(s);
+	}
+
+	}
+
+}
