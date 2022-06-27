@@ -1,0 +1,77 @@
+package test;
+
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JFrame;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+public class myframe extends JFrame implements ActionListener {
+	
+	
+	JButton button=new JButton("submit it ");
+	JTextField f=new JTextField();
+	JRadioButton a=new JRadioButton("pizza");
+
+	JRadioButton b=new JRadioButton("hamburger");
+
+	JRadioButton c=new JRadioButton("hot dog");
+	
+	JCheckBox box=new JCheckBox();
+	ImageIcon i1=new ImageIcon("C:\\Users\\j_gai\\Desktop\\2879593.png");
+	ImageIcon i2=new ImageIcon("C:\\Users\\j_gai\\Desktop\\images.jfif");
+	ButtonGroup group=new ButtonGroup();
+	
+	
+	myframe(){
+		a.addActionListener(this);
+		a.setIcon(i1);
+		a.setSelectedIcon(i2);
+		b.setIcon(i2);
+		b.addActionListener(this);
+		c.addActionListener(this);
+	this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	this.setLayout(new FlowLayout());
+	this.setVisible(true);
+	
+	group.add(a);
+	group.add(b);
+	group.add(c);
+	this.add(a);
+	this.add(b);
+	this.add(c);
+	this.pack();
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+	
+		if(e.getSource()==a)
+		{
+			System.out.println(a.getText()+"PIZAA");
+		}
+		else if(e.getSource()==b)
+		{
+			System.out.println(b.getText()+"2222");
+		}
+		else if(e.getSource()==c)
+		{
+			System.out.println(c.getText()+"THIRD");
+		}
+		else
+		{
+			System.out.println(box.isSelected()+"nA");
+		}
+	}
+
+}
