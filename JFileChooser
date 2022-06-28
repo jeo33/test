@@ -1,0 +1,55 @@
+package project;
+import com.sun.jdi.Field;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+public class demo extends JFrame implements ActionListener  {
+
+   JButton b=new JButton("clicked");
+   JFrame f=new JFrame();
+    demo()
+    {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setLayout(new FlowLayout());
+        this.setVisible(true);
+        this.setSize(500,500);
+        b.addActionListener(this);
+        this.add(b);
+        this.pack();
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==b)
+        {
+            JFileChooser chooser=new JFileChooser();
+            chooser.setCurrentDirectory(new File("C:\\Users\\zsy11\\Desktop"));
+            int response=chooser.showOpenDialog(null);//open
+
+            int r2=chooser.showSaveDialog(null);//select file to save
+            if(response==JFileChooser.APPROVE_OPTION)
+            {
+                File file=new File(chooser.getSelectedFile().getPath());
+                System.out.println(file);
+            }
+        }
+    }
+}
