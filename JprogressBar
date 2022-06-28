@@ -1,0 +1,41 @@
+package project;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+public class demo  {
+    JFrame f=new JFrame();
+    JProgressBar b=new JProgressBar(20,50);
+    demo(){
+            f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            f.setSize(500,500);
+            f.setVisible(true);
+            f.setLayout(null);
+            b.setValue(0);
+            f.add(b);
+            b.setBounds(100,200,300,20);
+            b.setStringPainted(true);
+            b.setFont(new Font("MV Boli",Font.BOLD,25));
+            b.setForeground(Color.RED);
+            b.setBackground(Color.black);
+        try {
+            fill( );
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        f.add(b);
+        }
+        public  void fill( ) throws InterruptedException {   int z=0;
+            while(z<=100)
+            {
+                b.setValue(z);
+                Thread.sleep(50);
+                z++;
+            }
+            b.setString("Done");
+
+
+        }
+
+}
