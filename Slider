@@ -1,0 +1,40 @@
+package project;
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+public class demo implements ChangeListener{
+
+
+    JFrame f=new JFrame("Demo");
+    JPanel p= new JPanel();
+    JLabel l=new JLabel();
+    JSlider s=new JSlider(0,100,50);
+    demo(){
+
+        s.setPreferredSize(new Dimension(200,400));
+        s.setPaintTicks(true);
+        s.setMinorTickSpacing(5);
+        s.setPaintTrack(true);
+        s.setMajorTickSpacing(25);
+        s.setPaintLabels(true);
+        s.setFont(new Font("MV Boli",Font.PLAIN,25));
+
+        l.setFont(new Font("MV Boli",Font.PLAIN,25));
+        s.setOrientation(SwingConstants.VERTICAL);
+        s.addChangeListener(this);
+        l.setText("'c"+s.getValue());
+        p.add(s);
+        p.add(l);
+        f.add(p);
+        f.setSize(500,500);
+        f.setVisible(true);
+
+
+
+    }
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        l.setText("'c"+s.getValue());
+    }
+}
