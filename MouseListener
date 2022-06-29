@@ -1,0 +1,68 @@
+package project;
+import com.sun.jdi.Field;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.File;
+
+public class demo extends JFrame implements MouseListener {
+
+    JButton b = new JButton("this is a button");
+    JLabel l = new JLabel();
+    ImageIcon i=new ImageIcon("C:\\Users\\zsy11\\Desktop\\rocket.png");
+    demo() {
+        l.setBounds(0, 0, 100, 100);
+        l.setBackground(Color.blue);
+        l.setOpaque(true);
+        l.setIcon(i);
+        //l.setIcon(i);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(500, 500);
+        this.setVisible(true);
+        this.setLayout(null);
+        this.add(l);
+        this.addMouseListener(this);
+    }
+
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        System.out.println("Mouse clicked");
+        l.setBackground(Color.magenta);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        System.out.println("Mouse pressed");
+
+        l.setBackground(Color.blue);
+
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        System.out.println("Mouse released");
+
+        l.setBackground(Color.yellow);
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+        System.out.println("Mouse entered");
+
+        l.setBackground(Color.green);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
+        System.out.println("Mouse exited");
+
+        l.setBackground(Color.red);
+    }
+}
