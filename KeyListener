@@ -1,0 +1,83 @@
+package project;
+import com.sun.jdi.Field;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.File;
+
+public class demo extends JFrame implements KeyListener {
+
+    JButton b = new JButton("this is a button");
+    JLabel l = new JLabel();
+    ImageIcon i=new ImageIcon("C:\\Users\\zsy11\\Desktop\\rocket.png");
+    demo() {
+        l.setBounds(0,0,100,100);
+        l.setBackground(Color.blue);
+        l.setOpaque(true);
+        l.setIcon(i);
+        //l.setIcon(i);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(500, 500);
+        this.setVisible(true);
+        this.setLayout(null);
+        this.add(l);
+        this.addKeyListener(this);
+
+    }
+
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+
+        char k=e.getKeyChar();
+        switch (k)
+        {
+            case 'a':
+                if(l.getX()>=0)
+                {l.setLocation(l.getX()-10,l.getY());
+                    }
+
+
+                break;
+            case 'w':
+                if(l.getY()>=0)
+                {
+                    l.setLocation(l.getX(),l.getY()-10);
+                }
+                break;
+            case 's':
+                if(l.getY()<=400)
+                {
+                    l.setLocation(l.getX(),l.getY()+10);
+                }
+                break;
+            case 'd':
+                if(l.getX()<=400)
+                {
+
+                    l.setLocation(l.getX()+10,l.getY());
+                }
+                break;
+        }
+        //System.out.println("You typed key char "+e.getKeyChar());
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+
+        //System.out.println("You Pressed key char "+e.getKeyChar());
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+       // System.out.println("You released key char "+e.getKeyChar());
+
+        //System.out.println("You released key char "+e.getKeyCode());
+    }
+}
