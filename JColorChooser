@@ -1,0 +1,50 @@
+package project;
+import com.sun.jdi.Field;
+
+import javax.swing.*;
+import javax.swing.event.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+public class demo  extends JFrame implements ActionListener{
+    JButton b=new JButton("this is a button");
+    JLabel l=new JLabel();
+
+    demo()
+    {
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(500,500);
+        this.setVisible(true);
+        this.setLayout(new FlowLayout());
+        l.setBackground(Color.magenta);
+        l.setOpaque(true);
+        l.setText("this is some text");
+        l.setFont(new Font("MV Boli",Font.BOLD,25));
+        b.addActionListener(this);
+
+       this.add(b);
+       this.add(l);
+       this.pack();
+
+
+
+
+
+
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource()==b)
+        {
+            JColorChooser chooser=new JColorChooser();
+            Color c=JColorChooser.showDialog(null,"pick a color",Color.BLACK);
+            l.setForeground(c);
+            Color c1=JColorChooser.showDialog(null,"pick a color",Color.BLACK);
+            l.setBackground(c1);
+        }
+    }
+}
