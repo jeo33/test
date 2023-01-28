@@ -1,3 +1,4 @@
+[kendrew] [/home/j/j_gai/coen346] > pstree -p
 systemd(1)─┬─NetworkManager(1031)─┬─dhclient(1229)
            │                      ├─{NetworkManager}(1049)
            │                      └─{NetworkManager}(1053)
