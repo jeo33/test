@@ -1,0 +1,51 @@
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+int main() {
+fork();
+printf("Hello world!\n");
+return 0; }
+
+
+Edit
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+int main() {
+fork();
+fork();
+fork();
+printf("Hello world!\n");
+return 0; }
+Edit2:
+#include <stdio.h>
+#include <sys/types.h>
+#include <unistd.h>
+void forkexample() {
+if (fork() == 0)
+printf("Hello-Child!\n");
+else
+printf("Hello-Parent!\n"); }
+int main() {
+forkexample();
+return 0; }
+Thread
+import java.io.*;
+class TestThread extends Thread {
+public void run() {
+System.out.print("Hello World!");
+}
+public static void main(String[] args) {
+TestThread t = new TestThread();
+t.start();
+} }
+import java.io.*;
+class TestThread implements Runnable {
+public static void main(String args[]) {
+TestThread t = new TestThread();
+Thread th = new Thread(t, "t"); /
+th.start();
+System.out.println(th.getName()); }
+@Override public void run() {
+System.out.println("Inside run method");
+} }
