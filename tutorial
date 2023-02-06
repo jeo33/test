@@ -1,87 +1,204 @@
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-int main() {
-fork();
-printf("Hello world!\n");
-return 0; }
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
+public class Concurrency4 implements Runnable{
 
-Edit
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-int main() {
-fork();
-fork();
-fork();
-printf("Hello world!\n");
-return 0; }
-Edit2:
-#include <stdio.h>
-#include <sys/types.h>
-#include <unistd.h>
-void forkexample() {
-if (fork() == 0)
-printf("Hello-Child!\n");
-else
-printf("Hello-Parent!\n"); }
-int main() {
-forkexample();
-return 0; }
-Thread
-import java.io.*;
-class TestThread extends Thread {
-public void run() {
-System.out.print("Hello World!");
-}
-public static void main(String[] args) {
-TestThread t = new TestThread();
-t.start();
-} }
-import java.io.*;
-class TestThread implements Runnable {
-public static void main(String args[]) {
-TestThread t = new TestThread();
-Thread th = new Thread(t, "t"); /
-th.start();
-System.out.println(th.getName()); }
-@Override public void run() {
-System.out.println("Inside run method");
-} }
-
-
-
-
-import java.io.IOException;
-import java.util.List;
-import java.util.ArrayList;
-
-public class OpenBrowser {
-    public static void main(String[] args) {
-        String url = "http://www.google.com";
-        String os = System.getProperty("os.name").toLowerCase();
-
-        List<String> commands = new ArrayList<>();
-
+    private String name;
+    Concurrency4(String name){
+        this.name = name;
+    }
+    @Override
+    public void run() {
+        System.out.println(Thread.currentThread().getName()+" (Start) message = "+name);
         try {
-            if (os.contains("windows")) {
-                commands.add("rundll32");
-                commands.add("url.dll,FileProtocolHandler");
-                commands.add(url);
-            } else if (os.contains("mac")) {
-                commands.add("open");
-                commands.add(url);
-            } else {
-                // this assumes a linux or unix system
-                commands.add("xdg-open");
-                commands.add(url);
-            }
-
-            new ProcessBuilder(commands).start();
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
         }
+        System.out.println(Thread.currentThread().getName()+" (End)");
+    }
+}
+
+class Parent{
+    public static void main(String[] args) throws InterruptedException {
+        //creating a pool of 5 threads
+        ExecutorService executor = Executors.newFixedThreadPool(5);
+
+        for (int i = 0; i < 10; i++) {
+            Runnable worker = new Concurrency4("" + i);
+            /*
+            ********************************************
+            * DIFFEREBENCE BETWEEN SUBMIT() AND EXECUTE()
+            * *******************************************
+            ExecuterService. submit()can return the result of computation because
+             it has a return type of Future, but the execute() method cannot return
+             anything because's return type is void.
+             */
+            executor.execute(worker);
+        }
+        executor.shutdown();
+        // awaitTermination ( long time, TimeUnit unit)
+        //Blocks until all tasks have completed execution after a shutdown request,
+        // or the timeout occurs, or the current thread is interrupted, whichever happens first.
+        executor.awaitTermination(10, TimeUnit.MICROSECONDS);
+        System.out.println("Finished all threads");
+    }
+}
+Collapse
+Concurrency4.java
+2 KB
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.concurrent.*;
+
+/*
+********************
+* RUNNABLE VS CALLABLE
+********************
+* The Runnable interface is a functional interface and has a single run()
+* method that doesn't accept any parameters or return any values.
+*
+* The Callable interface is a generic interface containing a single call()
+* method that returns a generic value V.
+*
+* WHY CALLABLE NOT RUNNABLE ???????????????????????????
+*
+* one important feature missing with the implementation of the Runnable interface
+* is that it is not possible for a thread to return something when it completes its execution,
+* i.e., when the run() method execution is over. In order to support this feature, the Java Callable
+* interface is used.
+
+ */
+public class Concurrency3 implements Callable {
+    @Override
+    public String call() throws Exception {
+        Thread.sleep(1000);
+        //return the thread name executing this callable task
+        return Thread.currentThread().getName();
+    }
+
+    public static void main(String[] args) {
+        //Get ExecutorService from Executors utility class, thread pool size is 10
+        ExecutorService executor = Executors.newFixedThreadPool(10);
+
+        //create a list to hold the Future object associated with Callable
+        List<Future<String>> list = new ArrayList<Future<String>>();
+        //Create MyCallable instance
+        Callable<String> callable = new Concurrency3();
+        for(int i=0; i< 10; i++){
+            //submit Callable tasks to be executed by thread pool
+            Future<String> future = executor.submit(callable);
+            //add Future to the list, we can get return value using Future
+            list.add(future);
+        }
+        for(Future<String> fut : list){
+            try {
+                //print the return value of Future, notice the output delay in console
+                // because Future.get() waits for task to get completed
+                System.out.println(new Date()+ "::"+fut.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+        //shut down the executor service now
+        executor.shutdown();
+    }
+
+}
+Collapse
+Concurrency3.java
+3 KB
+/*
+Java runnable is an interface used to execute code on a concurrent thread.
+It is an interface which is implemented by any class
+if we want that the instances of that class should be executed by a thread.
+
+The runnable interface has an undefined method run() with void as return type,
+and it takes in no arguments
+
+**********************************
+# APPLICATION OF RUNNABLE INTERFACE
+**********************************
+
+The runnable class is used to perform multi-thread programming, especially in
+server-side as a server may be getting several requests from different clients.
+To tackle this in a fast and resource-efficient way, we use multi-thread programming.
+
+**********************************************************
+Differences between "extending" and "implementing" Threads
+**********************************************************
+
+The major difference is that when a class extends the Thread class,
+you cannot extend any other class, but by implementing the Runnable interface,
+it is possible to extend from another class as well, like: class MyClass extends OtherClass implements Runnable.
+
+@author Jigar Borad
+ */
+public class Concurrency2 implements Runnable{
+
+    private String name;
+
+    Concurrency2(){
+
+    }
+
+    Concurrency2(String name){
+        this.name = name;
+    }
+
+    /*
+    This method takes in no arguments. When the object of a class implementing
+    Runnable class is used to create a thread, then the run method is invoked
+    in the thread which executes separately
+     */
+    @Override
+    public void run() {
+        for (int i=0;i<10;i++)
+            System.out.println("Hello from "+this.name);
+    }
+
+    public static void main(String[] args) {
+        Thread t1 = new Thread(new Concurrency2("Alpha"));
+        Thread t2 = new Thread(new Concurrency2("Beta"));
+        t1.start();
+        t2.start();
+        System.out.println("Complete");
+
+    }
+
+}
+Collapse
+Concurrency2.java
+2 KB
+
+/*
+Threads allows a program to operate more efficiently by doing multiple things at the same time.
+ */
+
+public class Concurrency1 extends Thread{
+
+    @Override
+    public void run() {
+        for (int i=0;i<5;i++)
+            System.out.println("Hello from "+ Thread.currentThread().getName());
+    }
+
+    public static void main(String[] args) {
+        Concurrency1 t1 = new Concurrency1();
+        t1.start();
+
+        // stopping thread using interrupt() method
+        System.out.println("status of thread before t1.isAlive() : "+t1.isAlive());
+        System.out.println("status of thread before t1.isInterrupted(): "+t1.isInterrupted());
+        t1.interrupt();
+
+        // please check the difference between isAlive() and inInterrupted() methods
+        //checking status of the thread after stopping it
+        System.out.println("status of thread after t1.isAlive() : "+t1.isAlive());
+        System.out.println("status of thread after t1.isInterrupted(): "+t1.isInterrupted());
+
+
     }
 }
