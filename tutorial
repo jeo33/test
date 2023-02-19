@@ -1,25 +1,26 @@
-#include <stdio.h> #include <stdlib.h> #include <string.h> #include <fcntl.h> #include <sys/shm.h> #include <sys/stat.h>
-#include <sys/mman.h>
-int main()
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+int sum; /* this data is shared by the thread(s) */
+void *runner(void *param); /* threads call this function */
+int main(int argc, char *argv[])
 {
-/* the size (in bytes) of shared memory object */
-const int SIZE = 4096;
-/* name of the shared memory object */
-const char *name = "OS";
-/* strings written to shared memory */ const char *message 0 = "Hello";
-const char *message 1 = "World!";
-/* shared memory file descriptor */
-int fd;
-/* pointer to shared memory obect */
-char *ptr;
-/* create the shared memory object */
-fd = shm open(name,O CREAT | O RDWR,0666);
-/* configure the size of the shared memory object */ ftruncate(fd, SIZE);
-   /* memory map the shared memory object */
-   ptr = (char *)
-mmap(0, SIZE, PROT READ | PROT WRITE, MAP SHARED, fd, 0);
-/* write to the shared memory object */ sprintf(ptr,"%s",message 0);
-ptr += strlen(message 0); sprintf(ptr,"%s",message 1);
-ptr += strlen(message 1); return 0;
-3.7 Examples of IPC Systems 133
-             }
+pthread t tid; /* the thread identifier */
+pthread attr t attr; /* set of thread attributes */
+/* set the default attributes of the thread */
+pthread attr init(&attr);
+/* create the thread */
+pthread create(&tid, &attr, runner, argv[1]);
+/* wait for the thread to exit */
+pthread join(tid,NULL);
+printf("sum = %d∖n",sum);
+}
+/* The thread will execute in this function */
+void *runner(void *param)
+{
+int i, upper = atoi(param);
+sum = 0;
+for (i = 1; i <= upper; i++)
+sum += i;
+pthread exit(0);
+}
